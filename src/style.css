@@ -1,3 +1,101 @@
 @import "tailwindcss";
 
 @tailwind utilities;
+
+@theme {
+  --color-black-custom-color: #252525;
+  --color-blue-coustom-color: #6c63ff;
+  --text-size-mg: 26px;
+  --width-750px: 750px;
+  --width-38px: 38px;
+  --width-1400px: 1400px;
+  --width-85px: 85px;
+  --width-520: 520px;
+  --higth-38px: 38px;
+  --higth-18px: 18px;
+  --padding-10: 10px;
+  --rouded-md: 5px;
+  --font-bold: 700;
+  --default-font-family: Arial, "Kanit";
+}
+
+.border-coustom-serch {
+  border: 1px solid var(--white, #f7f7f7);
+}
+
+/* Hide the default checkbox */
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create the custom checkbox */
+.custom-checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+  font-size: 20px;
+}
+
+/* Create the custom checkmark */
+.custom-checkbox .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 26px; /* Custom height */
+  width: 26px; /* Custom width */
+  background-color: transparent;
+  border: 2px solid #6c63ff;
+  border-radius: 4px; /* Optional: for rounded corners */
+}
+
+/* Change background color when checked */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark {
+  background-color: #2196f3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.custom-checkbox .checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark/indicator when checked */
+.custom-checkbox input[type="checkbox"]:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.custom-checkbox .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.add_task {
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-blue-coustom-color);
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  right: 333px;
+  bottom: 32px;
+}
+
+.font-size-18 {
+  font-size: 18px;
+}
+
+.hidden {
+  display: none;
+}

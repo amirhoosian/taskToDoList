@@ -6,8 +6,94 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
   </head>
-  <body class="bg-black-custom-color">
-    <div></div>
+  <body
+    class="bg-black-custom-color w-full h-full flex justify-center items-center"
+  >
+    <div class="w-750px h-full flex flex-col items-center gap-2.5">
+      <h1 class="text-white text-size-mg">TODO LIST</h1>
+      <div id="list" class="w-full flex gap-4">
+        <div
+          class="flex flex-1 gap-4 border-1 border-coustom-serch py-3 px-3 rounded"
+        >
+          <input class="flex-1" type="text" name="" value="inputTodo" />
+          <img src="./public/serch.svg" alt="" srcset="" />
+        </div>
+        <div
+          class="flex p-10 justify-around gap-2.5 bg-blue-coustom-color rounded-md w-28 h-12"
+        >
+          <button class="text-cyan-50 font-bold text-lg">ALL</button>
+          <img class="w-5" src="./public/chevron-top.svg" alt="" />
+        </div>
+        <div
+          class="w-12 h-12 justify-center bg-blue-coustom-color flex items-center rounded"
+        >
+          <img src="./public/sunScheme.svg" alt="" srcset="" />
+        </div>
+      </div>
+      <div class="w-full flex items-center justify-center">
+        <div id="container" class="w-520">
+          <div class="flex w-full justify-between">
+            <label class="custom-checkbox text-cyan-50">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              Note #1
+            </label>
+
+            <div class="flex gap-1.5 items-center">
+              <img src="./public/edit.svg" alt="edit" srcset="" />
+              <img src="./public/trash.svg" alt="trash" srcset="" />
+            </div>
+          </div>
+          <hr class="border-t-2 border-blue-500 my-6" />
+          <div class="flex w-full justify-between">
+            <label class="custom-checkbox text-cyan-50">
+              <input type="checkbox" />
+              <span class="checkmark"></span>
+              Note #1
+            </label>
+            <div class="flex gap-1.5 items-center">
+              <img src="./public/edit.svg" alt="edit" srcset="" />
+              <img src="./public/trash.svg" alt="trash" srcset="" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="add_task" id="add_task">
+        <img src="./public/Add_button.svg" alt="add_task" srcset="" />
+      </div>
+      <!--//////////////////////////////////////////////////-->
+      <div
+        id="modal"
+        class="hidden items-center justify-between flex-col fixed top-28 w-520 h-80 bg-black-custom-color border-2 border-zinc-50 rounded-2xl py-5"
+      >
+        <div class="flex flex-col items-center justify-between gap-6">
+          <h3 class="text-white text-2xl">Add New Task</h3>
+          <input
+            type="text"
+            name="newTask"
+            id="AddNewTask"
+            placeholder="input yout task"
+            class="w-md border-2 border-amber-50 rounded-md py-2 px-4"
+          />
+        </div>
+
+        <div class="w-full flex justify-between items-center px-8">
+          <button
+            id="cancel"
+            class="text-blue-400 font-size-18 bg-black-custom-color border-2 border-blue-400 rounded-md px-6 py-0.5"
+          >
+            Cancel
+          </button>
+          <button
+            id="add"
+            type="submit"
+            class="text-white font-size-18 bg-blue-coustom-color px-9 py-1 rounded-md"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
