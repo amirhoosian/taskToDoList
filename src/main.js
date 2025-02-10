@@ -66,6 +66,7 @@ function renderTask(task) {
   checkmark.classList.add("checkmark");
 
   const taskText = document.createElement("span");
+  taskText.id = "taskText";
   taskText.textContent = task.text; // Set the task text from the input
 
   label.append(checkbox, checkmark, taskText); // Add checkbox, checkmark, and text to the label
@@ -83,6 +84,7 @@ function renderTask(task) {
   const deleteButton = document.createElement("img");
   deleteButton.src = "./public/trash.svg";
   deleteButton.alt = "trash";
+
   deleteButton.classList.add("cursor-pointer");
   deleteButton.addEventListener("click", () => deleteTask(task.id)); // Add event listener for delete
 
@@ -91,13 +93,15 @@ function renderTask(task) {
   // Step 4: Add label and actions to the task container
   taskContainer.append(label, actions);
 
-  const divider = document.createElement("hr");
-  divider.classList.add("border-t-2", "border-blue-500", "my-6");
-
-  taskContainer.append(divider);
   // Step 5: Add the task to the todo list
   const todoList = document.getElementById("container");
   todoList.appendChild(taskContainer);
+  const divider = document.createElement("hr");
+  divider.classList.add("border-t-2", "border-blue-500", "my-6");
+
+  todoList.appendChild(divider);
+  taskContainer.setAttribute("data-id", task.id);
+  divider.setAttribute("data-id", task.id);
 }
 
 function toggleTaskCompletion(taskId) {
@@ -108,6 +112,58 @@ function toggleTaskCompletion(taskId) {
   tasks = tasks.map((task) => {
     if (task.id === taskId) {
       task.completed = !task.completed; // Toggle the completion status
+    }
+    return task;
+  });
+
+  // Step 3: Save the updated tasks back to localStorage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  // Step 4: Reload the tasks on the screen (optional)
+  location.reload(); // Refresh the page to reflect changes
+}
+
+for (const task of JSON.parse(localStorage.getItem("tasks")) || []) {
+  renderTask(task);
+}
+
+//delete task
+function deleteTask(taskId) {
+  // Step 1: Get tasks from localStorage
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  // Step 2: Find the task with the matching ID
+  tasks = tasks.filter((task) => task.id !== taskId);
+
+  // Step 3: Save the updated tasks back to localStorage
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  // Step 4: Remove the task from the screen
+  const taskContainer = document.querySelector(`[data-id="${taskId}"]`);
+  taskContainer.remove();
+  divider.remove();
+}
+
+//edit task
+function editTask(taskId) {
+  const taskContainer = document.querySelector(`[data-id="${taskId}"]`);
+
+  const tasksText = taskContainer.querySelector("#taskText");
+  const newTaskText = prompt("Enter the new task text:");
+  if (newTaskText) {
+    tasksText.textContent = newTaskText;
+  }
+  updateTaskInLocalStorage(taskId, newTaskText);
+}
+
+function updateTaskInLocalStorage(taskId, newTaskText) {
+  // Step 1: Get tasks from localStorage
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  // Step 2: Find the task with the matching ID
+  tasks = tasks.map((task) => {
+    if (task.id === taskId) {
+      task.text = newTaskText; // Update the task text
     }
     return task;
   });
