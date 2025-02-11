@@ -13,17 +13,26 @@
       <h1 class="text-white text-size-mg">TODO LIST</h1>
       <div id="list" class="w-full flex gap-4">
         <div
-          class="flex flex-1 gap-4 border-1 border-coustom-serch py-3 px-3 rounded"
+          class="flex flex-1 gap-4 border-1 border-coustom-serch py-2 px-3 rounded"
         >
-          <input class="flex-1" type="text" name="" value="inputTodo" />
+          <input id="search" class="flex-1" type="text" name="" value="search in todolist" />
           <img src="./public/serch.svg" alt="" srcset="" />
         </div>
-        <div
-          class="flex p-10 justify-around gap-2.5 bg-blue-coustom-color rounded-md w-28 h-12"
+        <div class="relative">
+          <div id="drropdown"
+          class="flex p-10 justify-around gap-2.5 bg-blue-coustom-color rounded-md w-28 h-12 cursor-pointer"
         >
           <button class="text-cyan-50 font-bold text-lg">ALL</button>
           <img class="w-5" src="./public/chevron-top.svg" alt="" />
         </div>
+        <!-- لیست کشویی -->
+        <div id="myDropdown" class="dropdown-content">
+          <a id="all" href="#all" onclick="filterTasks('all')">All</a>
+          <a id="done" href="#done" onclick="filterTasks('done')">done</a>
+          <a id="not-done" href="#not-done" onclick="filterTasks('not-done')">not done</a>
+      </div>
+        </div>
+        
         <div
           class="w-12 h-12 justify-center bg-blue-coustom-color flex items-center rounded"
         >

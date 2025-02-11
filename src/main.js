@@ -50,7 +50,8 @@ function renderTask(task) {
     "flex",
     "w-full",
     "justify-between",
-    "item-center"
+    "item-center",
+    "items-task"
   );
 
   // Step 2: Create the label with checkbox and task text
@@ -173,4 +174,95 @@ function updateTaskInLocalStorage(taskId, newTaskText) {
 
   // Step 4: Reload the tasks on the screen (optional)
   location.reload(); // Refresh the page to reflect changes
+}
+
+//search
+const searchInput = document.getElementById("search");
+function search() {
+  const taskContainer = document.querySelector("#container");
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+  const searchText = searchInput.value.toLowerCase();
+  taskContainer.innerHTML = "";
+  tasks.forEach((task) => {
+    if (task.text.toLowerCase().includes(searchText)) {
+      renderTask(task);
+    }
+  });
+}
+
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    search();
+  }
+});
+
+//dropdown list function
+
+function toggleDropdown() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+document.getElementById("drropdown").addEventListener("click", toggleDropdown);
+
+window.onclick = function (event) {
+  if (
+    !event.target.matches(".cursor-pointer") &&
+    !event.target.matches(".dropdown-content a")
+  ) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains("show")) {
+        openDropdown.classList.remove("show");
+      }
+    }
+  }
+};
+
+//filter by status
+
+function filterTasks(status) {
+  const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  const taskContainer = document.querySelector("#container");
+
+  let filteredTasks;
+  if (status === "done") {
+    filteredTasks = tasks.filter((task) => task.completed);
+  } else if (tatus === "not-done") {
+    filteredTasks = tasks.filter((task) => !task.completed);
+  } else {
+    filteredTasks = tasks;
+  }
+
+  // پاک کردن محتوای قبلی
+  taskContainer.innerHTML = "";
+
+  // نمایش وظایف فیلتر شده
+  filteredTasks.forEach((task) => {
+    const taskElement = document.createElement("div");
+    taskElement.classList.add(
+      "task-item",
+      "p-4",
+      "bg-white",
+      "rounded-md",
+      "shadow-md",
+      "mb-2"
+    );
+    taskElement.dataset.id = task.id;
+
+    const taskText = document.createElement("span");
+    taskText.textContent = task.task;
+
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "🗑️";
+    deleteButton.classList.add("ml-2");
+    deleteButton.onclick = function () {
+      deleteTask(task.id);
+    };
+
+    taskElement.appendChild(taskText);
+    taskElement.appendChild(deleteButton);
+    taskContainer.appendChild(taskElement);
+  });
 }
